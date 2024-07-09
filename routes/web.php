@@ -25,17 +25,37 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+// Route::get('/admin', function () {
+//     return view('admin.index');
+// })->middleware(['auth', 'role:admin'])->name('admin.index');
+
+
+// Route::post('/movie/export', [MovieController::class, 'exportExcel'])->name('movie.excel');
+
 Route::get('/admin', function () {
     return view('admin.index');
 })->middleware(['auth', 'role:admin'])->name('admin.index');
 
-
-Route::middleware('auth', 'role:admin')->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('/movie', [MovieController::class, 'index'])->name('movie.index');
     Route::post('/movie', [MovieController::class, 'store'])->name('movie.store');
+    Route::post('/movie/export', [MovieController::class, 'exportExcel'])->name('movie.excel');
     Route::post('/movie/{movie}', [MovieController::class, 'update'])->name('movie.update');
     Route::delete('/movie/{movie}', [MovieController::class, 'destroy'])->name('movie.destroy');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+
+// Route::middleware('auth', 'role:admin')->group(function () {
+//     Route::get('/movie', [MovieController::class, 'index'])->name('movie.index');
+//     Route::post('/movie', [MovieController::class, 'store'])->name('movie.store');
+//     Route::post('/movie/{movie}', [MovieController::class, 'update'])->name('movie.update');
+//     Route::delete('/movie/{movie}', [MovieController::class, 'destroy'])->name('movie.destroy');
+//     // Route::post('/movie/export', [MovieController::class, 'exportExcel'])->name('movie.excel');
+// });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -43,11 +63,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/user/movie', [UserController::class, 'index'])->middleware(['auth', 'role:user'])->name('user.movie.index');
+// Route::get('/user/movie', [UserController::class, 'index'])->middleware(['auth', 'role:user'])->name('user.movie.index');
 
-Route::middleware('auth', 'role:editor')->group(function () {
-    Route::get('/editor/movie', [EditorController::class, 'index'])->name('editor.movie.index');
-    Route::post('/editor/movie/{movie}', [EditorController::class, 'update'])->name('editor.movie.update');
-});
+// Route::middleware('auth', 'role:editor')->group(function () {
+//     Route::get('/editor/movie', [EditorController::class, 'index'])->name('editor.movie.index');
+//     Route::post('/editor/movie/{movie}', [EditorController::class, 'update'])->name('editor.movie.update');
+// });
 
 require __DIR__.'/auth.php';

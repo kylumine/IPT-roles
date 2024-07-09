@@ -15,16 +15,19 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('movie.index')" :active="request()->routeIs('movie.index')">
+                        {{ __('Movies') }}
+                    </x-nav-link>
+
                     @role('admin')
                     <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
                         {{ __('Admin') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('movie.index')" :active="request()->routeIs('movie.index')">
-                        {{ __('Movies') }}
-                    </x-nav-link>
                     @endrole
 
-                    @role('editor')
+
+                    {{-- @role('editor')
                         <x-nav-link :href="route('editor.movie.index')" :active="request()->routeIs('editor.movie.index')">
                             {{ __('Movies') }}
                         </x-nav-link>
@@ -34,7 +37,7 @@
                         <x-nav-link :href="route('user.movie.index')" :active="request()->routeIs('user.movie.index')">
                             {{ __('Movies') }}
                         </x-nav-link>
-                    @endrole
+                    @endrole --}}
                 </div>
             </div>
 
