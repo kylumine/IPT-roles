@@ -1,21 +1,21 @@
 <x-app-layout>
 
     @can('visit logs')
-     <div class="py-12">
+     <div class="py-5">
          <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
              <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                  <div class="p-6 text-gray-900">
 
-                   <div class="flex flex-row items-center justify-between space-x-4 ">
-                      <h1 class="m-1 text-[50px] font-bold">LOGS</h1>
+                   <div class="d-grid gap-2 d-md-flex">
+                    <h1 class="m-1 fw-bold display-6">Activity Log</h1>
 
                    </div>
 
                 <!-- Table -->
 
-                <div class="container px-6">
+                <div class="container px-6 py-4">
 
-                      <table class="table table-bordered">
+                      <table class="table table-bordered table-striped">
                             <thead>
                                <tr>
                                   <th>Timestamp</th>
@@ -36,7 +36,7 @@
 
 
              </div>
-         </div>
+
      </div>
     @endcan
 

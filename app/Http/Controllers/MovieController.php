@@ -30,7 +30,7 @@ class MovieController extends Controller
         ]);
         $movie = Movie::create($validatedData);
 
-        $log_entry = 'Added a new movie ' . $movie->title . ' with the ID# of ' . $movie->id;
+        $log_entry = 'Added a new movie "' . $movie->title . '" with the ID# of ' . $movie->id;
         event(new UserLog($log_entry));
 
         return redirect()->route('movie.index')->with('success', 'Product created successfully.');
@@ -61,7 +61,7 @@ class MovieController extends Controller
         ]);
         $movie->update($validatedData);
 
-        $log_entry = 'Updated the movie ' . $movie->title . ' with the ID# of ' . $movie->id;
+        $log_entry = 'Updated the movie "' . $movie->title . '" with the ID# of ' . $movie->id;
         event(new UserLog($log_entry));
 
         return redirect()->route('movie.index')->with('success', 'Movie updated successfully.');
@@ -86,7 +86,7 @@ class MovieController extends Controller
         abort_if(Gate::denies('delete movie'), 403);
         $movie->delete();
 
-        $log_entry = 'Deleted the movie ' . $movie->title . ' with the ID# of ' . $movie->id;
+        $log_entry = 'Deleted the movie "' . $movie->title . '" with the ID# of ' . $movie->id;
         event(new UserLog($log_entry));
 
         return redirect()->route('movie.index')->with('success', 'Product deleted successfully.');
