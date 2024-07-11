@@ -25,12 +25,14 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'edit movie']);
         Permission::create(['name' => 'delete movie']);
         Permission::create(['name' => 'export movie']);
+        Permission::create(['name' => 'visit logs']);
 
         $role1 = Role::create(['name' => 'admin']);
         $role1->givePermissionTo('create movie');
         $role1->givePermissionTo('edit movie');
         $role1->givePermissionTo('delete movie');
         $role1->givePermissionTo('export movie');
+        $role1->givePermissionTo('visit logs');
 
         $role2 = Role::create(['name' => 'editor']);
         $role2->givePermissionTo('edit movie');

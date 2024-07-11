@@ -38,6 +38,7 @@ Route::get('/admin', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/movie', [MovieController::class, 'index'])->name('movie.index');
+    Route::get('/logs', [MovieController::class, 'logs'])->name('movie.logs');
     Route::post('/movie', [MovieController::class, 'store'])->name('movie.store');
     Route::post('/movie/export', [MovieController::class, 'exportExcel'])->name('movie.excel');
     Route::post('/movie/{movie}', [MovieController::class, 'update'])->name('movie.update');

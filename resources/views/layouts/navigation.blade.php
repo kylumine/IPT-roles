@@ -20,6 +20,12 @@
                         {{ __('Movies') }}
                     </x-nav-link>
 
+                    @can('visit logs')
+                    <x-nav-link :href="route('movie.logs')" :active="request()->routeIs('movie.logs')">
+                        {{ __('Logs') }}
+                    </x-nav-link>
+                    @endcan
+
                     @role('admin')
                     <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
                         {{ __('Admin') }}

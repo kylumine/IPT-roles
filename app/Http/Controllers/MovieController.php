@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\MoviesDataExport;
 use App\Models\Movie;
-
+use App\Events\UserLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -28,7 +28,11 @@ class MovieController extends Controller
             'rate_per_day' => 'required',
             'imageUrl' => 'required',
         ]);
-        Movie::create($validatedData);
+        $movie = Movie::create($validatedData);
+
+        $log_entry = 'Added a new movie ' . $movie->title . ' with the ID# of ' . $movie->id;
+        event(new UserLog($log_entry));
+
         return redirect()->route('movie.index')->with('success', 'Product created successfully.');
     }
 
@@ -56,6 +60,10 @@ class MovieController extends Controller
             'imageUrl' => 'required',
         ]);
         $movie->update($validatedData);
+
+        $log_entry = 'Updated the movie ' . $movie->title . ' with the ID# of ' . $movie->id;
+        event(new UserLog($log_entry));
+
         return redirect()->route('movie.index')->with('success', 'Movie updated successfully.');
     }
 
@@ -78,6 +86,9 @@ class MovieController extends Controller
         abort_if(Gate::denies('delete movie'), 403);
         $movie->delete();
 
+        $log_entry = 'Deleted the movie ' . $movie->title . ' with the ID# of ' . $movie->id;
+        event(new UserLog($log_entry));
+
         return redirect()->route('movie.index')->with('success', 'Product deleted successfully.');
     }
 
@@ -97,5 +108,12 @@ class MovieController extends Controller
     {
         abort_if(Gate::denies('export movie'), 403);
         return Excel::download(new MoviesDataExport, 'movies-data.xlsx');
+    }
+
+    public function logs()
+    {
+        abort_if(Gate::denies('visit logs'), 403);
+        $logs = auth()->user()->logs;
+        return view('logs', compact('logs'));
     }
 }
